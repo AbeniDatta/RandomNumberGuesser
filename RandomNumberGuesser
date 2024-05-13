@@ -1,0 +1,47 @@
+import random
+
+
+class GuessingGame:
+
+    def __init__(self, min_num=1, max_num=10):
+        self.min_num = min_num
+        self.max_num = max_num
+        self.secret_number = random.randint(min_num, max_num)
+        self.attempts = 0
+
+    def play(self):
+        print("Welcome to the Guessing Game!")
+        print(
+            f"I'm thinking of a number between {self.min_num} and {self.max_num}."
+        )
+
+        while True:
+            guess = self.get_guess()
+            self.attempts += 1
+            if guess == self.secret_number:
+                print(
+                    f"Congratulations! You've guessed the number {self.secret_number} "
+                    f"in {self.attempts} attempts.")
+                break
+            elif guess < self.secret_number:
+                print("Too low! Try guessing a higher number.")
+            else:
+                print("Too high! Try guessing a lower number.")
+
+    def get_guess(self):
+        while True:
+            try:
+                guess = int(input("Enter your guess: "))
+                if self.min_num <= guess <= self.max_num:
+                    return guess
+                else:
+                    print(
+                        f"Please enter a number between {self.min_num} and {self.max_num}."
+                    )
+            except ValueError:
+                print("Please enter a valid integer.")
+
+
+if __name__ == "__main__":
+    game = GuessingGame()
+    game.play()
